@@ -29,4 +29,18 @@ def get_jsonparsed_data(url):
     return json.loads(data)
 
 url = ("https://financialmodelingprep.com/api/stock/actives?datatype=json")
-print(get_jsonparsed_data(url))
+# print(get_jsonparsed_data(url))
+
+
+most_active_parser_response = get_jsonparsed_data(url)
+
+
+# print(most_active_parser_response)
+
+# print(most_active_parser_response)
+
+for i in most_active_parser_response["mostActiveStock"]:
+    print(i["mostActiveStock"]["ticker"])
+
+# for i in stock_sectors_parsed_response["sectorPerformance"]:
+#     print(i["sector"], i["changesPercentage"])
