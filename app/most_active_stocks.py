@@ -39,8 +39,14 @@ most_active_parser_response = get_jsonparsed_data(url)
 
 # print(most_active_parser_response)
 
-for i in most_active_parser_response["mostActiveStock"]:
-    print(i["mostActiveStock"]["ticker"])
+
+# breakpoint()
+
+for k in most_active_parser_response.keys():
+    ticker = most_active_parser_response[k]
+    print(ticker["Changes"])
+
+
 
 # for i in stock_sectors_parsed_response["sectorPerformance"]:
 #     print(i["sector"], i["changesPercentage"])
