@@ -55,6 +55,6 @@ forex_parsed_response = json.loads(response.text) #this converts string format i
 # print(forex_parsed_response)
 
 for i in forex_parsed_response["forexList"]:
-    print(["ticker"],["bid"],["ask"],["open"],["low"],["high"],["changes"],["date"])
+    # print(["ticker"],["bid"],["ask"],["open"],["low"],["high"],["changes"],["date"])
     print(i["ticker"],i["bid"],i["ask"],i["open"],i["low"],i["high"],i["changes"],i["date"])
 
