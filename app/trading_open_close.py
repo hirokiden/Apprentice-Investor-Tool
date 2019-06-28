@@ -1,4 +1,4 @@
-# TO RUN THIS SCRIPT COPY THIS COMMAND INTO THE TERMINAL -----> forex.py
+# TO RUN THIS SCRIPT COPY THIS COMMAND INTO THE TERMINAL -----> trading_open_close.py
 
 packages_setup = ['''
 
@@ -8,7 +8,7 @@ conda activate stocks-env
 pip install -r requirements.txt
 pip install pytest # (only if you'll be writing tests)
 
-python forex.py
+python trading_open_close.py
 
 ''']
 
@@ -42,7 +42,7 @@ def usd_format(my_price):
 # request_url = f"https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol={user_input_ticker}&apikey={api_key}"
 
 
-request_url = f"https://financialmodelingprep.com/api/v3/forex"
+request_url = f"https://financialmodelingprep.com/api/v3/is-the-market-open"
 
 response = requests.get(request_url)
 
@@ -50,11 +50,10 @@ response = requests.get(request_url)
 # print(response.status_code)
 # print(response.text) # This is a string
 
-forex_parsed_response = json.loads(response.text) #this converts string format into dictionary
+open_close_parsed_response = json.loads(response.text) #this converts string format into dictionary
 
-# print(forex_parsed_response)
+# print(open_close_parsed_response)
 
-for i in forex_parsed_response["forexList"]:
-    # print(["ticker"],["bid"],["ask"],["open"],["low"],["high"],["changes"],["date"])
-    print(i["ticker"],i["bid"],i["ask"],i["open"],i["low"],i["high"],i["changes"],i["date"])
+selected_crypo_ticker = crypto_parsed_response["ticker"]
+selected_crypo_name = crypto_parsed_response[ "name"]
 
