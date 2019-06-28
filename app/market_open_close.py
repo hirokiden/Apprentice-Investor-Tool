@@ -52,15 +52,46 @@ response = requests.get(request_url)
 
 market_open_close_parsed_response = json.loads(response.text) #this converts string format into dictionary
 
-# print(most_gainer_parsed_response)
+# print(market_open_close_parsed_response)
 
 # breakpoint()
 
-# print(most_gainer_parsed_response["mostGainerStock"]["ticker"][1])
 
-for i in most_loser_parsed_response["mostLoserStock"]:
-    print(i["ticker"], i["price"], i["changes"], i["changesPercentage"], i["companyName"])
+if market_open_close_parsed_response["isTheStockMarketOpen"] == "True":
+    open_or_not = "Open"
+else:
+    open_or_not = "Closed" 
 
+this_calendar_year = market_open_close_parsed_response["stockMarketHolidays"][0]
+
+# print("\n")
+print("The", market_open_close_parsed_response["stockExchangeName"], "opens at", market_open_close_parsed_response["stockMarketHours"]["openingHour"], "and closes at", market_open_close_parsed_response["stockMarketHours"]["closingHour"], "on weekdays.")
+print("\n")
+print("The Stock Market is currently", open_or_not,".")
+# print("\n")
+print("Note that these are the upcoming holidays for the current Calendar Year:", this_calendar_year["year"])
+
+
+
+# for i in market_open_close_parsed_response["stockMarketHolidays"]:
+
+# Wanted to keep loop but the subsequent calendar year .json data is incorrect and will import only the top position [0]
+    
+# print("\n")
+# print(this_calendar_year["year"], "Calendar year")
+print(this_calendar_year["New Years Day"], "New Years Day")
+print(this_calendar_year["Martin Luther King, Jr. Day"], "Martin Luther King, Jr. Day")
+print(this_calendar_year["Washington's Birthday"], "Washington's Birthday")
+print(this_calendar_year["Good Friday"], "Good Friday")
+print(this_calendar_year["Memorial Day"], "Memorial Day")
+print(this_calendar_year["Independence Day"], "Independence Day")
+print(this_calendar_year["Labor Day"], "Labor Day")
+print(this_calendar_year["Thanksgiving Day"], "Thanksgiving Day")
+print(this_calendar_year["Christmas"], "Christmas")
+
+
+
+# Reference Code Below -->
 
 # or i in forex_parsed_response["forexList"]:
 #     # print(["ticker"],["bid"],["ask"],["open"],["low"],["high"],["changes"],["date"])
