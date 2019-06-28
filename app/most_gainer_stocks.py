@@ -63,11 +63,14 @@ for i in most_gainer_parsed_response["mostGainerStock"]:
     mgs_ticker = i["ticker"]
     mgs_price = i["price"]
     mgs_changes = i["changes"]
+    mgs_change_pct = i["changesPercentage"]
     mgs_company_name = i["companyName"]
 
     print("\n")
-    print(mgs_ticker)
-    print(mgs_company_name)
-    print(mgs_price)
-    print(mgs_changes)
+    print("Stock Ticker:", mgs_ticker)
+    print("Company Name:", mgs_company_name)
+    print("Current Price:", usd_format(float(mgs_price)))
+    print("Price Change:", usd_format(float(mgs_changes)))
+    print("Price Change %:", mgs_change_pct)
+   
     
