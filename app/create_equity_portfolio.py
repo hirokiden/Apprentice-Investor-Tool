@@ -10,7 +10,7 @@ import datetime
 from dotenv import load_dotenv
 import requests
 import plotly
-
+import plotly.graph_objs as go
 
 load_dotenv() # loads from .env
 
@@ -88,20 +88,21 @@ while loop == 0:
         print("\n", "Your portfolio contains the following stocks: ", *investor_portfolio)
 
     elif portfolio_option == 5:
+        dates_prices = {}
         if not investor_portfolio:
             print("You do not have a ticker in your portfolio.  Please add a ticker.")
         else:
-            dates_prices = {}
-            for ticker in investor_portfolio:
+            for ticker in investor_portfolio: 
                 dates_prices[ticker] = {"date":[], "price":[]}
                 request_url = f"https://financialmodelingprep.com/api/v3/historical-price-full/{ticker}?serietype=line"
                 response = requests.get(request_url)
                 parsed_response = json.loads(response.text)
                 dt = parsed_response["historical"]
-                breakpoint()
-                for d in dt["date"]:
-                    str(date)
-                    dates_prices["ticker"]["dates"]= date
+                for d in dt:
+                    print(ticker, d["date"], d["close"])
+                    dates_prices[ticker]["date"].append(d["date"])
+                    dates_prices[ticker]["price"].append(d["close"])
+        breakpoint()
                         
 
                 
