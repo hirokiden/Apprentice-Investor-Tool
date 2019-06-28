@@ -71,8 +71,8 @@ selected_crypo_market_cap = crypto_parsed_response[ "marketCapitalization"]
 # most_recent_low = parsed_response["Time Series (Daily)"][current_date]["3. low"]
 # most_recent_total_volumes_traded = parsed_response["Time Series (Daily)"][current_date]["5. volume"]
 
-print(selected_crypo_ticker)
-print(selected_crypo_name)
-print(selected_crypo_price)
-print(selected_crypo_change)
-print(selected_crypo_market_cap)
+print("Cryptocurrency Ticker:", selected_crypo_ticker)
+print("Cryptocurrency Name:", selected_crypo_name)
+print("Current Price:", usd_format( float(selected_crypo_price) ) )
+print("Price Change:", usd_format( float(selected_crypo_change) ) )
+print("Market Capitalization:", usd_format( float(selected_crypo_market_cap) ) )

@@ -59,7 +59,21 @@ most_loser_parsed_response = json.loads(response.text) #this converts string for
 # print(most_gainer_parsed_response["mostGainerStock"]["ticker"][1])
 
 for i in most_loser_parsed_response["mostLoserStock"]:
-    print(i["ticker"], i["price"], i["changes"], i["changesPercentage"], i["companyName"])
+    # print(i["ticker"], i["price"], i["changes"], i["changesPercentage"], i["companyName"])
+    mls_ticker = i["ticker"]
+    mls_price = i["price"]
+    mls_changes = i["changes"]
+    mls_change_pct = i["changesPercentage"]
+    mls_companyname = i["companyName"]
+
+    print("\n")
+    print("Stock Ticker:", mls_ticker)
+    print("Company Name:", mls_companyname)
+    print("Current Price:", float(mls_price))
+    print("Price Change:", float(mls_changes))
+    print("Price Change %:", mls_change_pct)
+
+
 
 
 # or i in forex_parsed_response["forexList"]:
