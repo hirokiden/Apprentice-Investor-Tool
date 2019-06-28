@@ -44,9 +44,13 @@ most_active_parser_response = get_jsonparsed_data(url)
 
 for k in most_active_parser_response.keys():
     ticker = most_active_parser_response[k]
-    print(ticker["Changes"])
+    print("Ticker Symbol: ", ticker["Ticker"], "Price: ", ticker["Price"], "$ Change: ", ticker["Changes"], "% Change: ", ticker["ChangesPerc"], "Company Name: ", ticker["companyName"])
 
 
 
 # for i in stock_sectors_parsed_response["sectorPerformance"]:
 #     print(i["sector"], i["changesPercentage"])
+
+# parameters for print 
+
+# dataframe
