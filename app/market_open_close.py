@@ -79,6 +79,7 @@ print("Note that these are the upcoming holidays for the current Calendar Year:"
     
 # print("\n")
 # print(this_calendar_year["year"], "Calendar year")
+print("\n")
 print(this_calendar_year["New Years Day"], "New Years Day")
 print(this_calendar_year["Martin Luther King, Jr. Day"], "Martin Luther King, Jr. Day")
 print(this_calendar_year["Washington's Birthday"], "Washington's Birthday")
