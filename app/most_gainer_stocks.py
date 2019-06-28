@@ -59,14 +59,15 @@ most_gainer_parsed_response = json.loads(response.text) #this converts string fo
 # print(most_gainer_parsed_response["mostGainerStock"]["ticker"][1])
 
 for i in most_gainer_parsed_response["mostGainerStock"]:
-    print(i["ticker"], i["price"], i["changes"], i["changesPercentage"], i["companyName"])
+    # print(i["ticker"], i["price"], i["changes"], i["changesPercentage"], i["companyName"])
+    mgs_ticker = i["ticker"]
+    mgs_price = i["price"]
+    mgs_changes = i["changes"]
+    mgs_company_name = i["companyName"]
 
-
-# or i in forex_parsed_response["forexList"]:
-#     # print(["ticker"],["bid"],["ask"],["open"],["low"],["high"],["changes"],["date"])
-#     print(i["ticker"],i["bid"],i["ask"],i["open"],i["low"],i["high"],i["changes"],i["date"])
-
-# for k in most_gainer_parsed_response.keys():
-#     ticker = most_gainer_parsed_response[k]
-#     print(ticker["mostGainerStock"][""])
-
+    print("\n")
+    print(mgs_ticker)
+    print(mgs_company_name)
+    print(mgs_price)
+    print(mgs_changes)
+    
