@@ -9,6 +9,7 @@ import datetime
 # packages
 from dotenv import load_dotenv
 import requests
+import plotly
 
 
 load_dotenv() # loads from .env
@@ -30,7 +31,7 @@ while loop == 0:
     print("Option 3: View the portfolio")
     print("Option 4: Valuation analysis of your portfolio")
     print("Option 5: Time series analysis of your portfolio")
-    print("Option 6: Return to the main screen")
+    print("Option 6: Return to the main screen", "\n")
     portfolio_option = input("Please type a number between 1 and 6: ")  
     while not portfolio_option.isdigit() or int(portfolio_option) > 6 or int(portfolio_option) < 1:
         portfolio_option = input("Incorrect input.  Please type a number between 1 and 6:")
@@ -46,14 +47,14 @@ while loop == 0:
         while test == False:
             if len(symbol) > 5:
                 symbol = input("Ticker invalid.  Please enter a new ticker: ")
-                request_url = f"https://financialmodelingprep.com/api/v3/company/profile/{symbol}"
-                response = requests.get(request_url)
-                parsed_response = json.loads(response.text) 
+                #request_url = f"https://financialmodelingprep.com/api/v3/company/profile/{symbol}"
+                #response = requests.get(request_url)
+                #parsed_response = json.loads(response.text) 
             elif 'Error' in parsed_response.keys():
                 symbol = input("Ticker invalid.  Please enter a new ticker: ")
-                request_url = f"https://financialmodelingprep.com/api/v3/company/profile/{symbol}"
-                response = requests.get(request_url)
-                parsed_response = json.loads(response.text)
+                #request_url = f"https://financialmodelingprep.com/api/v3/company/profile/{symbol}"
+                #response = requests.get(request_url)
+                #parsed_response = json.loads(response.text)
             else:
                 investor_portfolio.append(symbol)
                 print("\n", "Ticker added to portfolio")
@@ -68,22 +69,41 @@ while loop == 0:
             parsed_response = json.loads(response.text)
             if len(symbol) > 5:
                 symbol = input("Ticker invalid.  Please enter a new ticker: ")
-                request_url = f"https://financialmodelingprep.com/api/v3/company/profile/{symbol}"
-                response = requests.get(request_url)
-                parsed_response = json.loads(response.text) 
+                #request_url = f"https://financialmodelingprep.com/api/v3/company/profile/{symbol}"
+                #response = requests.get(request_url)
+                #parsed_response = json.loads(response.text) 
             elif 'Error' in parsed_response.keys():
                 symbol = input("Ticker invalid.  Please enter a new ticker: ")
-                request_url = f"https://financialmodelingprep.com/api/v3/company/profile/{symbol}"
-                response = requests.get(request_url)
-                parsed_response = json.loads(response.text)
+                #request_url = f"https://financialmodelingprep.com/api/v3/company/profile/{symbol}"
+                #response = requests.get(request_url)
+                #parsed_response = json.loads(response.text)
             elif symbol not in investor_portfolio:
                 symbol = input("Ticker not in portfolio.  Please enter a new ticker: ")
             else:
                 investor_portfolio.remove(symbol)
                 print("\n", "Ticker removed from portfolio")  
+                test = True
     
     elif portfolio_option == 3:
-        print("\n", "Your portfolio includes the following tickers: ", *investor_portfolio)
-            
+        print("\n", "Your portfolio contains the following stocks: ", *investor_portfolio)
+
+    elif portfolio_option == 5:
+        if not investor_portfolio:
+            print("You do not have a ticker in your portfolio.  Please add a ticker.")
+        else:
+            dates_prices = {}
+            for ticker in investor_portfolio:
+                dates_prices[ticker] = {"date":[], "price":[]}
+                request_url = f"https://financialmodelingprep.com/api/v3/historical-price-full/{ticker}?serietype=line"
+                response = requests.get(request_url)
+                parsed_response = json.loads(response.text)
+                dt = parsed_response["historical"]
+                breakpoint()
+                for d in dt["date"]:
+                    str(date)
+                    dates_prices["ticker"]["dates"]= date
+                        
+
+                
     
     
