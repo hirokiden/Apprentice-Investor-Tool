@@ -31,7 +31,7 @@ while loop == 0:
     print("Option 3: View the portfolio")
     print("Option 4: Company Profile of your portfolio")
     print("Option 5: Time series analysis of your portfolio")
-    print("Option 6: ", "\n")
+    print("Option 6: Current Market Information", "\n")
     portfolio_option = input("Please type a number between 1 and 6: ")  
     while not portfolio_option.isdigit() or int(portfolio_option) > 6 or int(portfolio_option) < 1:
         portfolio_option = input("Incorrect input.  Please type a number between 1 and 6:")
@@ -98,7 +98,7 @@ while loop == 0:
                 print("Website: ", cp["website"])
                 print("Desciption: ", cp["description"])
                 print("CEO: ", cp["ceo"])
-                print("Sector: ", ["sector"])
+                print("Sector: ", cp["sector"])
                 print("Image: ", cp["image"])
     
     elif portfolio_option == 5:
@@ -121,8 +121,25 @@ while loop == 0:
                 "data": [go.Scatter(x=dates_prices[ticker]["date"], y=dates_prices[ticker]["price"])],
                 "layout": go.Layout(title=f"{ticker} Price Chart")
                 }, auto_open=True)
-                        
-
-                
     
-    
+    elif portfolio_option == 6:
+        print("\n")
+        print("Choose one of the following options: ")
+        print("Option 1: Market Open Close")
+        print("Option 2: Daily Stock Sectors")
+        print("Option 3: Index List")
+        print("Option 4: Most Active Stocks")
+        print("Option 5: Biggest Gainer Stocks")
+        print("Option 6: Biggest Losers Stocks")
+        print("Option 7: Forex Current Rates")    
+        print("Option 8: Crypto Currencies")
+        print("Option 9: Crytpo Ticker")        
+            
+        market_option = input("Please type a number between 1 and 9: ")  
+        while not portfolio_option.isdigit() or int(portfolio_option) > 9 or int(portfolio_option) < 1:
+            portfolio_option = input("Incorrect input.  Please type a number between 1 and 6:")
+            
+        portfolio_option = int(portfolio_option)
+        
+        test = False 
+        if portfolio_option == 1:
