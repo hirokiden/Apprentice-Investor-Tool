@@ -47,14 +47,8 @@ while loop == 0:
         while test == False:
             if len(symbol) > 5:
                 symbol = input("Ticker invalid.  Please enter a new ticker: ")
-                #request_url = f"https://financialmodelingprep.com/api/v3/company/profile/{symbol}"
-                #response = requests.get(request_url)
-                #parsed_response = json.loads(response.text) 
             elif 'Error' in parsed_response.keys():
                 symbol = input("Ticker invalid.  Please enter a new ticker: ")
-                #request_url = f"https://financialmodelingprep.com/api/v3/company/profile/{symbol}"
-                #response = requests.get(request_url)
-                #parsed_response = json.loads(response.text)
             else:
                 investor_portfolio.append(symbol)
                 print("\n", "Ticker added to portfolio")
@@ -99,10 +93,14 @@ while loop == 0:
                 parsed_response = json.loads(response.text)
                 dt = parsed_response["historical"]
                 for d in dt:
-                    print(ticker, d["date"], d["close"])
                     dates_prices[ticker]["date"].append(d["date"])
                     dates_prices[ticker]["price"].append(d["close"])
-        breakpoint()
+                
+                # for line charts code from professor rosetti's "three_charts" exercise was referenced  
+                plotly.offline.plot({
+                "data": [go.Scatter(x=dates_prices[ticker]["date"], y=dates_prices[ticker]["price"])],
+                "layout": go.Layout(title=f"{ticker} Price Chart")
+                }, auto_open=True)
                         
 
                 
