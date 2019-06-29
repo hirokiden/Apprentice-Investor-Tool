@@ -54,22 +54,9 @@ crypto_list_parsed_response = json.loads(response.text) #this converts string fo
 
 # print(crypto_list_parsed_response)
 
-print("The following list contains a comprehensive snapshot of major cryptocurrecies' performance:")
 
 for i in crypto_list_parsed_response["cryptocurrenciesList"]:
-    # print(i["ticker"], i["name"], i["price"], i["changes"], i["marketCapitalization"])
-    c_list_ticker = i["ticker"]
-    c_list_crypto_name = i["name"]
-    c_list_price = i["price"]
-    c_list_change = i["changes"]
-    c_list_market_cap = i["marketCapitalization"]
-
-    print("\n")
-    print("Cryptocurrency Ticker:", c_list_ticker)
-    print("Cryptocurrency Name:", c_list_crypto_name)
-    print("Current Price:", usd_format( float(c_list_price) ) )
-    print("Price Change:", usd_format( float(c_list_change) ) )
-    print("Market Capitalization:", usd_format( float(c_list_market_cap) ) )
+    print(i["ticker"], i["name"], i["price"], i["changes"], i["marketCapitalization"])
 
 
 

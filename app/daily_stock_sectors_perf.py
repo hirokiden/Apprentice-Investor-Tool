@@ -55,13 +55,5 @@ stock_sectors_parsed_response = json.loads(response.text) #this converts string 
 # print(crypto_list_parsed_response)
 
 for i in stock_sectors_parsed_response["sectorPerformance"]:
-    # print("Sector Name", i["sector"], "Change in %", i["changesPercentage"])
-
-    daily_sector_name = i["sector"]
-    daily_sector_pct_change = i["changesPercentage"]
-
-    print("\n")
-    print("Sector Name:")
-    print(daily_sector_name)
-    print("Change in %:", daily_sector_pct_change)
+    print(i["sector"], i["changesPercentage"])
 
