@@ -57,6 +57,7 @@ stock_sectors_parsed_response = json.loads(stock_sectors_response.text) #this co
 print("The following list contains a comprehensive daily snapshot of industrial sectors' performance:")
 
 for i in stock_sectors_parsed_response["sectorPerformance"]:
+<<<<<<< HEAD
     # print("Sector Name", i["sector"], "Change in %", i["changesPercentage"])
 
     daily_sector_name = i["sector"]
@@ -66,4 +67,7 @@ for i in stock_sectors_parsed_response["sectorPerformance"]:
     print("Sector Name:", daily_sector_name)
     # print(daily_sector_name)
     print("Change in %:", daily_sector_pct_change)
+=======
+    print(i["sector"], i["changesPercentage"])
+>>>>>>> ac15449bea1e95d6eeafa6b6568f449212e5078f
 
