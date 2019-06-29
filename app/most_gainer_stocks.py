@@ -42,15 +42,15 @@ def usd_format(my_price):
 # request_url = f"https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol={user_input_ticker}&apikey={api_key}"
 
 
-request_url = f"https://financialmodelingprep.com/api/v3/stock/gainers"
+most_gainer_request_url = f"https://financialmodelingprep.com/api/v3/stock/gainers"
 
-response = requests.get(request_url)
+most_gainer_response = requests.get(most_gainer_request_url)
 
 # print(type(response))
 # print(response.status_code)
 # print(response.text) # This is a string
 
-most_gainer_parsed_response = json.loads(response.text) #this converts string format into dictionary
+most_gainer_parsed_response = json.loads(most_gainer_response.text) #this converts string format into dictionary
 
 # print(most_gainer_parsed_response)
 

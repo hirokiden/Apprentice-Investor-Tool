@@ -42,18 +42,22 @@ def usd_format(my_price):
 # request_url = f"https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol={user_input_ticker}&apikey={api_key}"
 
 
-request_url = f"https://financialmodelingprep.com/api/v3/cryptocurrencies"
+crypto_list_request_url = f"https://financialmodelingprep.com/api/v3/cryptocurrencies"
 
-response = requests.get(request_url)
+crypto_list_response = requests.get(crypto_list_request_url)
 
 # print(type(response))
 # print(response.status_code)
 # print(response.text) # This is a string
 
-crypto_list_parsed_response = json.loads(response.text) #this converts string format into dictionary
+crypto_list_parsed_response = json.loads(crypto_list_response.text) #this converts string format into dictionary
 
 # print(crypto_list_parsed_response)
 
+<<<<<<< HEAD
+print("The following list contains a comprehensive daily snapshot of major cryptocurrecies' performance:")
+=======
+>>>>>>> ac15449bea1e95d6eeafa6b6568f449212e5078f
 
 for i in crypto_list_parsed_response["cryptocurrenciesList"]:
     print(i["ticker"], i["name"], i["price"], i["changes"], i["marketCapitalization"])

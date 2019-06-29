@@ -45,24 +45,33 @@ print("Please enter your desired crypto ticker")
 
 bitcoin_ticker = input()
 
-request_url = f"https://financialmodelingprep.com/api/v3/cryptocurrency/{bitcoin_ticker}"
+bitcoin_ticker_lower= bitcoin_ticker.lower()
 
-response = requests.get(request_url)
+crypto_list_request_url = f"https://financialmodelingprep.com/api/v3/cryptocurrency/{bitcoin_ticker_lower}"
+
+crypto_list_parsed_response = requests.get(crypto_list_request_url)
+
 
 # print(type(response))
 # print(response.status_code)
 # print(response.text) # This is a string
 
-crypto_parsed_response = json.loads(response.text) #this converts string format into dictionary
+crypto_list_parsed_response = json.loads(crypto_list_parsed_response.text) #this converts string format into dictionary
+
+try: 
+    crypto_list_parsed_response["ticker"]
+except:
+    print("Please rerun the script and enter a valid crypto currency ticker")
+    exit()
 
 # print(crypto_parsed_response)
 
 
-selected_crypo_ticker = crypto_parsed_response["ticker"]
-selected_crypo_name = crypto_parsed_response[ "name"]
-selected_crypo_price = crypto_parsed_response[ "price"]
-selected_crypo_change = crypto_parsed_response[ "changes"]
-selected_crypo_market_cap = crypto_parsed_response[ "marketCapitalization"]
+selected_crypo_ticker = crypto_list_parsed_response["ticker"]
+selected_crypo_name = crypto_list_parsed_response[ "name"]
+selected_crypo_price = crypto_list_parsed_response[ "price"]
+selected_crypo_change = crypto_list_parsed_response[ "changes"]
+selected_crypo_market_cap = crypto_list_parsed_response[ "marketCapitalization"]
 
 # last_refreshed = parsed_response["Meta Data"]["3. Last Refreshed"]
 # most_recent_open = parsed_response["Time Series (Daily)"][current_date]["1. open"]
@@ -73,6 +82,6 @@ selected_crypo_market_cap = crypto_parsed_response[ "marketCapitalization"]
 
 print("Cryptocurrency Ticker:", selected_crypo_ticker)
 print("Cryptocurrency Name:", selected_crypo_name)
-print("Current Price:", usd_format( float(selected_crypo_price) ) )
+print("Current Price: $", float(selected_crypo_price) ) 
 print("Price Change:", usd_format( float(selected_crypo_change) ) )
 print("Market Capitalization:", usd_format( float(selected_crypo_market_cap) ) )

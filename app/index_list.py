@@ -43,15 +43,15 @@ def usd_format(my_price):
 # request_url = f"https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol={user_input_ticker}&apikey={api_key}"
 
 
-request_url = f"https://financialmodelingprep.com/api/v3/majors-indexes"
+index_list_request_url = f"https://financialmodelingprep.com/api/v3/majors-indexes"
 
-response = requests.get(request_url)
+index_list_response = requests.get(index_list_request_url)
 
 # print(type(response))
 # print(response.status_code)
 # print(response.text) # This is a string
 
-index_list_parsed_response = json.loads(response.text) #this converts string format into dictionary
+index_list_parsed_response = json.loads(index_list_response.text) #this converts string format into dictionary
 
 # print(index_list_parsed_response)
 
@@ -98,8 +98,9 @@ for i in index_list_parsed_response["majorIndexesList"]:
     index_name = i["indexName"]
     price = i["price"]
     changes = i["changes"]
+    
     print(ticker)
     print (index_name)
-    print( price)
-    print(changes)
+    print("Index Price: $", price)
+    print("Index Change: $", changes)
 

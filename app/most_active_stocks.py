@@ -17,13 +17,13 @@ def usd_format(my_price):
     return "${0:,.2f}".format(my_price) # This UDF will change numerical denomination to currency and cents (2 digits) format when passed through
 
 
-#!/usr/bin/env python
+# Code dervied from the website: https://financialmodelingprep.com/developer/docs/most-actives-stock-market-data-free-api/
 
 try:
-    # For Python 3.0 and later
+    # For use on Python 3.0 +
     from urllib.request import urlopen
 except ImportError:
-    # Fall back to Python 2's urllib2
+    # Revise back to Python 2.0 if necessary using except
     from urllib2 import urlopen
 
 import json
@@ -60,7 +60,7 @@ most_active_parser_response = get_jsonparsed_data(url)
 
 
 print("You are pulling this information at:", date_time)
-print("The Most Active Stock Traded is:")
+print("The Most Active Stocks Traded Are:")
 
 for k in most_active_parser_response.keys():
     ticker = most_active_parser_response[k]
