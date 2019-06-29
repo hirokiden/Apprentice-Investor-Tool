@@ -77,7 +77,7 @@ for k in most_active_parser_response.keys():
     print("Company Name:", mas_comp_name)
     print("Current Price:", usd_format( float(mas_price) ) )
     print("Price Change:", usd_format( float(mas_change) ) )
-    print("Price Change %:", mas_change_pct)
+    print("Price Change %:", usd_format( float(mas_change_pct) ) )
     
 
 # parameters for print 
