@@ -63,24 +63,44 @@ while loop == 0:
             parsed_response = json.loads(response.text)
             if len(symbol) > 5:
                 symbol = input("Ticker invalid.  Please enter a new ticker: ")
-                #request_url = f"https://financialmodelingprep.com/api/v3/company/profile/{symbol}"
-                #response = requests.get(request_url)
-                #parsed_response = json.loads(response.text) 
             elif 'Error' in parsed_response.keys():
                 symbol = input("Ticker invalid.  Please enter a new ticker: ")
-                #request_url = f"https://financialmodelingprep.com/api/v3/company/profile/{symbol}"
-                #response = requests.get(request_url)
-                #parsed_response = json.loads(response.text)
             elif symbol not in investor_portfolio:
                 symbol = input("Ticker not in portfolio.  Please enter a new ticker: ")
             else:
                 investor_portfolio.remove(symbol)
                 print("\n", "Ticker removed from portfolio")  
                 test = True
-    
+
     elif portfolio_option == 3:
         print("\n", "Your portfolio contains the following stocks: ", *investor_portfolio)
-
+   
+    elif portfolio_option == 4:
+        if not investor_portfolio:
+            print("You do not have a ticker in your portfolio.  Please add a ticker.")
+        else:
+            for ticker in investor_portfolio:
+                request_url = f"https://financialmodelingprep.com/api/v3/company/profile/{ticker}"
+                response = requests.get(request_url)
+                parsed_response = json.loads(response.text)
+                cp = parsed_response["profile"]
+                print("\n")
+                print(cp["companyName"], "Company Profile")
+                print("\n")
+                print("Beta: ", cp["beta"])
+                print("Average Volume: ", cp["volAvg"])
+                print("Market Cap: ", cp["mktCap"])
+                print("Last Dividend: ", cp["lastDiv"])
+                print("Change: ", cp["changes"])
+                print("Change Percentage: ", cp["changesPercentage"])
+                print("Exchange: ", cp["exchange"])
+                print("Industry: ", cp["industry"])
+                print("Website: ", cp["website"])
+                print("Desciption: ", cp["description"])
+                print("CEO: ", cp["ceo"])
+                print("Sector: ", ["sector"])
+                print("Image: ", cp["image"])
+    
     elif portfolio_option == 5:
         dates_prices = {}
         if not investor_portfolio:
