@@ -297,8 +297,9 @@ while loop == 0:
             forex_response = requests.get(forex_request_url)
 
             forex_parsed_response = json.loads(forex_response.text) #this converts string format into dictionary
-
+            print("\n")
             print("The following list contains a comprehensive daily snapshot of major currencies' Forex:")
+            print("\n")
 
             for i in forex_parsed_response["forexList"]:
 
@@ -311,16 +312,7 @@ while loop == 0:
                 forex_changes = i["changes"]
                 forex_date = i["date"]
 
-
-                print("\n")
-                print("Forex Tickers:", forex_ticker)
-                print("Forex Bid:", forex_bid)
-                print("Forex Ask:", forex_ask)
-                print("Forex Open:", forex_open)
-                print("Forex Low:", forex_low)
-                print("Forex High", forex_high)
-                print("Forex Change:", forex_changes)
-                print("Forex Date:", forex_date)
+                print(forex_ticker, "** Bid:", forex_bid, "** Ask:", forex_ask, "** Open:", forex_open, "** Low:", forex_low, "** High", forex_high, "** Change:", forex_changes, "** Date:", forex_date) 
 
         if market_option == 8:
 
@@ -329,11 +321,12 @@ while loop == 0:
             crypto_list_response = requests.get(crypto_list_request_url)
 
             crypto_list_parsed_response = json.loads(crypto_list_response.text) #this converts string format into dictionary
-
+            print("\n")
             print("The following list contains a comprehensive daily snapshot of major cryptocurrecies' performance:")
+            print("\n")
 
             for i in crypto_list_parsed_response["cryptocurrenciesList"]:
-                print(i["ticker"], i["name"], i["price"], i["changes"], i["marketCapitalization"])
+                print(i["ticker"], i["name"], "** Price:", i["price"], "** Changes:", i["changes"], "** Market Cap:", i["marketCapitalization"])
 
 
         if market_option == 9:
