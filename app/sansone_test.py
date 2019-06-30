@@ -34,59 +34,34 @@ for ticker in investor_portfolio:
    
         for i in fs: # This loop will take the 1st ticker and output all the details in the loop
 
-            financial_statement_revenue_growth = i["Revenue Growth"] 
-            financial_statement_cost_revenue = i["Cost of Revenue"] 
-            financial_statement_gross_profit = i["Gross Profit"] 
-            financial_statement_rd_exp = i["R&D Expenses"] 
-            financial_statement_sga_exp = i["SG&A Expense"] 
-            financial_statement_op_exp = i["Operating Expenses"] 
-            financial_statement_op_income = i["Operating Income"] 
-            financial_statement_int_exp = i["Interest Expense"]
-            financial_statement_earning_b4_tax = i["Earnings before Tax"]
-            financial_statement_income_tax_exp = i["Income Tax Expense"]
-            financial_statement_net_income =  i["Net Income"]
-            financial_statement_eps = i["EPS"]
-            financial_statement_eps_diluted = i["EPS Diluted"]
-            financial_statement_dividend_per_share = i["Dividend per Share"]
-            financial_statement_gross_margin = i["Gross Margin"]
-            financial_statement_ebitda_margin = i["EBITDA Margin"]
-            financial_statement_ebit_margin = i["EBIT Margin"]
-            financial_statement_profit_margin = i["Profit Margin"]
-            financial_statement_free_cash_flow_margin = i["Free Cash Flow margin"]
-            financial_statement_ebidtda = i["EBITDA"]
-            financial_statement_ebit = i[ "EBIT"]
-            financial_statement_consolidated_income = i[ "EBIT"]
-            financial_statement_earnings_b4_tax_margin = i["Earnings Before Tax Margin"]
-            financial_statement_net_profit_margin = i["Net Profit Margin"]
-
 
             writer.writerow({
             "Ticker": ticker.upper(), #capitalized the user stock ticker input 1
             "Date":  i["date"] , 
             "Revenue": i["Revenue"] , 
-            "Revenue Growth": financial_statement_revenue_growth, 
-            "Cost of Revenue":  financial_statement_cost_revenue, 
-            "Gross Profit": financial_statement_gross_profit, 
-            "R&D Expenses": financial_statement_rd_exp, 
-            "SG&A Expenses": financial_statement_sga_exp, 
-            "Operating Expenses": financial_statement_op_exp, 
-            "Operating Income": financial_statement_op_income, 
-            "Interest Expense": financial_statement_int_exp, 
-            "Earning before Tax": financial_statement_earning_b4_tax, 
-            "Income Tax Expense": financial_statement_income_tax_exp, 
-            "Net Income": financial_statement_net_income, 
-            "EPS": financial_statement_eps, 
-            "EPS Diluted": financial_statement_eps_diluted, 
-            "Dividend per Share": financial_statement_dividend_per_share, 
-            "Gross Margin": financial_statement_gross_margin, 
-            "EBITDA Margin": financial_statement_ebitda_margin, 
-            "EBIT Margins":  financial_statement_ebit_margin, 
-            "Profit Margin": financial_statement_profit_margin, 
-            "Free Cash Flow Margin": financial_statement_free_cash_flow_margin, 
-            "EBITDA": financial_statement_ebidtda, 
-            "EBIT": financial_statement_ebit, 
-            "Earnings Before Tax Margin": financial_statement_earnings_b4_tax_margin, 
-            "Net Profit Margin": financial_statement_net_profit_margin,
+            "Revenue Growth": i["Revenue Growth"], 
+            "Cost of Revenue":  i["Cost of Revenue"], 
+            "Gross Profit": i["Gross Profit"], 
+            "R&D Expenses": i["R&D Expenses"], 
+            "SG&A Expenses": i["SG&A Expense"], 
+            "Operating Expenses": i["Operating Expenses"] , 
+            "Operating Income": i["Operating Income"], 
+            "Interest Expense": i["Interest Expense"], 
+            "Earning before Tax": i["Earnings before Tax"], 
+            "Income Tax Expense": i["Income Tax Expense"], 
+            "Net Income": i["Net Income"], 
+            "EPS": i["EPS"], 
+            "EPS Diluted": i["EPS Diluted"], 
+            "Dividend per Share": i["Dividend per Share"], 
+            "Gross Margin": i["Gross Margin"], 
+            "EBITDA Margin": i["EBITDA Margin"], 
+            "EBIT Margins":  i["EBIT Margin"], 
+            "Profit Margin": i["Profit Margin"], 
+            "Free Cash Flow Margin": i["Free Cash Flow margin"], 
+            "EBITDA": i["EBITDA"], 
+            "EBIT": i["EBIT"], 
+            "Earnings Before Tax Margin": i["Earnings Before Tax Margin"], 
+            "Net Profit Margin": i["Net Profit Margin"],
         
             
             })
