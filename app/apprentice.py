@@ -143,8 +143,6 @@ while loop == 0:
         market_option = int(market_option)
          
         if market_option == 1:
-            now = datetime.datetime.now()
-            date_time = now.strftime("%m/%d/%Y %I:%M:%S %p") # Formatted for easy to understand human reading instead of military time
 
             market_open_close_request_url = f"https://financialmodelingprep.com/api/v3/is-the-market-open"
 
@@ -174,3 +172,41 @@ while loop == 0:
             print(this_calendar_year["Labor Day"], "Labor Day")
             print(this_calendar_year["Thanksgiving Day"], "Thanksgiving Day")
             print(this_calendar_year["Christmas"], "Christmas")
+
+        if market_option == 2:
+
+            stock_sectors_request_url = f"https://financialmodelingprep.com/api/v3/stock/sectors-performance"
+            stock_sectors_response = requests.get(stock_sectors_request_url)
+            stock_sectors_parsed_response = json.loads(stock_sectors_response.text) #this converts string format into dictionary
+
+            print("The following list contains a comprehensive daily snapshot of industrial sectors' performance:")
+
+            for i in stock_sectors_parsed_response["sectorPerformance"]:
+
+                daily_sector_name = i["sector"]
+                daily_sector_pct_change = i["changesPercentage"]
+
+                print("\n")
+                print("Sector Name:", daily_sector_name)
+                print("Change in %:", daily_sector_pct_change)
+                print(i["sector"], i["changesPercentage"])
+        
+        if market_option == 3:
+
+            index_list_request_url = f"https://financialmodelingprep.com/api/v3/majors-indexes"
+            index_list_response = requests.get(index_list_request_url)
+            index_list_parsed_response = json.loads(index_list_response.text) #this converts string format into dictionary
+
+            for i in index_list_parsed_response["majorIndexesList"]:
+                print("\n")
+                ticker = i["ticker"]
+                index_name = i["indexName"]
+                price = i["price"]
+                changes = i["changes"]
+                
+                print(ticker)
+                print (index_name)
+                print("Index Price: $", price)
+                print("Index Change: $", changes)
+
+
