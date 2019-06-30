@@ -17,11 +17,21 @@ def usd_format(my_price):
     return "${0:,.2f}".format(my_price) # This UDF will change numerical denomination to currency and cents (2 digits) format when passed through
 
 
+
+
+
+###################################### COPY FROM BELOW THIS POINT #####################################################
+
+
+
+
+
+
+
+###################################### Section to input 3 Valid Tickers  ######### 
+
 print("Please enter three valid stock ticker symbols!  As an example, Disney is 'DIS' and AT&T is 'T'. ")
 print("The financial data for all three companies will print in three .csv files for your use.")
-
-
-###################################### Section to input 3 Valid Tickers
 
 
 while True:
