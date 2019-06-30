@@ -124,8 +124,10 @@ while loop == 0:
     
     elif portfolio_option == 6:
         print("\n")
+        print("You selected option 6.")
         print("Choose one of the following options: ")
-        print("Option 1: Market Open Close")
+        print("\n")
+        print("Option 1: Market Open Close and List of Holidays")
         print("Option 2: Daily Stock Sectors")
         print("Option 3: Index List")
         print("Option 4: Most Active Stocks")
@@ -157,6 +159,7 @@ while loop == 0:
 
             this_calendar_year = market_open_close_parsed_response["stockMarketHolidays"][0]
 
+            print("\n")
             print("The", market_open_close_parsed_response["stockExchangeName"], "opens at", market_open_close_parsed_response["stockMarketHours"]["openingHour"], "and closes at", market_open_close_parsed_response["stockMarketHours"]["closingHour"], "on weekdays.")
             print("\n")
             print("The Stock Market is currently", open_or_not,".")
@@ -179,16 +182,11 @@ while loop == 0:
             stock_sectors_response = requests.get(stock_sectors_request_url)
             stock_sectors_parsed_response = json.loads(stock_sectors_response.text) #this converts string format into dictionary
 
+            print("\n")
             print("The following list contains a comprehensive daily snapshot of industrial sectors' performance:")
+            print("\n")
 
             for i in stock_sectors_parsed_response["sectorPerformance"]:
-
-                daily_sector_name = i["sector"]
-                daily_sector_pct_change = i["changesPercentage"]
-
-                print("\n")
-                print("Sector Name:", daily_sector_name)
-                print("Change in %:", daily_sector_pct_change)
                 print(i["sector"], i["changesPercentage"])
         
         if market_option == 3:
@@ -196,18 +194,18 @@ while loop == 0:
             index_list_request_url = f"https://financialmodelingprep.com/api/v3/majors-indexes"
             index_list_response = requests.get(index_list_request_url)
             index_list_parsed_response = json.loads(index_list_response.text) #this converts string format into dictionary
+            print("\n")
+            print("Daily activity for major indexes: ")
+            print("\n")
 
             for i in index_list_parsed_response["majorIndexesList"]:
-                print("\n")
                 ticker = i["ticker"]
                 index_name = i["indexName"]
                 price = i["price"]
                 changes = i["changes"]
                 
-                print(ticker)
-                print (index_name)
-                print("Index Price: $", price)
-                print("Index Change: $", changes)
+                print("**", index_name, "** Price: $", price, " ** Change: $", changes)
+
 
         if market_option == 4:
             now = datetime.datetime.now()
