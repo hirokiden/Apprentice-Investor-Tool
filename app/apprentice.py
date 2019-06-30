@@ -277,3 +277,102 @@ while loop == 0:
                 print("Price Change:", to_usd(float(mgs_changes)))
                 print("Price Change %:", mgs_change_pct)
             
+        if market_option == 6:
+            most_loser_request_url = f"https://financialmodelingprep.com/api/v3/stock/losers"
+
+            most_loser_response = requests.get(most_loser_request_url)
+
+            most_loser_parsed_response = json.loads(most_loser_response.text) #this converts string format into dictionary
+
+            for i in most_loser_parsed_response["mostLoserStock"]:
+                mls_ticker = i["ticker"]
+                mls_price = i["price"]
+                mls_changes = i["changes"]
+                mls_change_pct = i["changesPercentage"]
+                mls_companyname = i["companyName"]
+
+                print("\n")
+                print("Stock Ticker:", mls_ticker)
+                print("Company Name:", mls_companyname)
+                print("Current Price:", float(mls_price))
+                print("Price Change:", float(mls_changes))
+                print("Price Change %:", mls_change_pct)
+
+        if market_option == 7:
+            forex_request_url = f"https://financialmodelingprep.com/api/v3/forex"
+
+            forex_response = requests.get(forex_request_url)
+
+            forex_parsed_response = json.loads(forex_response.text) #this converts string format into dictionary
+
+            print("The following list contains a comprehensive daily snapshot of major currencies' Forex:")
+
+            for i in forex_parsed_response["forexList"]:
+
+                forex_ticker = i["ticker"]
+                forex_bid = i["bid"]
+                forex_ask = i["ask"]
+                forex_open = i["open"]
+                forex_low = i["low"]
+                forex_high = i["high"]
+                forex_changes = i["changes"]
+                forex_date = i["date"]
+
+
+                print("\n")
+                print("Forex Tickers:", forex_ticker)
+                print("Forex Bid:", forex_bid)
+                print("Forex Ask:", forex_ask)
+                print("Forex Open:", forex_open)
+                print("Forex Low:", forex_low)
+                print("Forex High", forex_high)
+                print("Forex Change:", forex_changes)
+                print("Forex Date:", forex_date)
+
+        if market_option == 8:
+
+            crypto_list_request_url = f"https://financialmodelingprep.com/api/v3/cryptocurrencies"
+
+            crypto_list_response = requests.get(crypto_list_request_url)
+
+            crypto_list_parsed_response = json.loads(crypto_list_response.text) #this converts string format into dictionary
+
+            print("The following list contains a comprehensive daily snapshot of major cryptocurrecies' performance:")
+
+            for i in crypto_list_parsed_response["cryptocurrenciesList"]:
+                print(i["ticker"], i["name"], i["price"], i["changes"], i["marketCapitalization"])
+
+
+        if market_option == 9:
+
+            ticker_loop = 0
+            while ticker_loop == 0:
+                bitcoin_ticker = input("Please enter your desired crypto ticker: ")
+
+                bitcoin_ticker_lower= bitcoin_ticker.lower()
+
+                crypto_list_request_url = f"https://financialmodelingprep.com/api/v3/cryptocurrency/{bitcoin_ticker_lower}"
+
+                crypto_list_parsed_response = requests.get(crypto_list_request_url)
+                crypto_list_parsed_response = json.loads(crypto_list_parsed_response.text) #this converts string format into dictionary
+                
+                try: 
+                    crypto_list_parsed_response["ticker"]
+                    ticker_loop = 1
+                except:
+                    print("Crypto ticker invalid.  Please enter another Crypto ticker: ")
+                    
+
+            selected_crypo_ticker = crypto_list_parsed_response["ticker"]
+            selected_crypo_name = crypto_list_parsed_response[ "name"]
+            selected_crypo_price = crypto_list_parsed_response[ "price"]
+            selected_crypo_change = crypto_list_parsed_response[ "changes"]
+            selected_crypo_market_cap = crypto_list_parsed_response[ "marketCapitalization"]
+
+            print("\n")
+            print("Cryptocurrency Ticker:", selected_crypo_ticker)
+            print("Cryptocurrency Name:", selected_crypo_name)
+            print("Current Price: $", float(selected_crypo_price) ) 
+            print("Price Change:", to_usd( float(selected_crypo_change) ) )
+            print("Market Capitalization:", to_usd( float(selected_crypo_market_cap) ) )
+
