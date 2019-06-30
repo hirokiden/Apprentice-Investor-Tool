@@ -25,13 +25,16 @@ while loop == 0:
 
     # to create an equity portfolio
     print("\n")
+    print("-------------------------------------------------------------")
     print("Create, modify and track a portfolio of stocks!")
+    print("\n")
     print("Option 1: Add a ticker to the portfolio")
     print("Option 2: Remove a ticker from the portfolio")
     print("Option 3: View the portfolio")
     print("Option 4: Company Profile of your portfolio")
     print("Option 5: Time series analysis of your portfolio")
     print("Option 6: Current Market Information", "\n")
+    print("-------------------------------------------------------------")
     portfolio_option = input("Please type a number between 1 and 6: ")  
     while not portfolio_option.isdigit() or int(portfolio_option) > 6 or int(portfolio_option) < 1:
         portfolio_option = input("Incorrect input.  Please type a number between 1 and 6:")
@@ -51,7 +54,7 @@ while loop == 0:
                 symbol = input("Ticker invalid.  Please enter a new ticker: ")
             else:
                 investor_portfolio.append(symbol)
-                print("\n", "Ticker added to portfolio")
+                print("\n", "*** TICKER ADDED TO PORTFOLIO ***")
                 test = True  
 
  
@@ -69,7 +72,7 @@ while loop == 0:
                 symbol = input("Ticker not in portfolio.  Please enter a new ticker: ")
             else:
                 investor_portfolio.remove(symbol)
-                print("\n", "Ticker removed from portfolio")  
+                print("\n", "*** TICKER REMOVED FROM PORTFOLIO ***")  
                 test = True
 
     elif portfolio_option == 3:
@@ -86,13 +89,7 @@ while loop == 0:
                 cp = parsed_response["profile"]
                 print("\n")
                 print(cp["companyName"], "Company Profile")
-                print("\n")
-                print("Beta: ", cp["beta"])
-                print("Average Volume: ", cp["volAvg"])
-                print("Market Cap: ", cp["mktCap"])
-                print("Last Dividend: ", cp["lastDiv"])
-                print("Change: ", cp["changes"])
-                print("Change Percentage: ", cp["changesPercentage"])
+                print("** Beta:", cp["beta"], "** Average Volume:", cp["volAvg"], "** Market Cap:", cp["mktCap"], "** Last Dividend:", cp["lastDiv"])
                 print("Exchange: ", cp["exchange"])
                 print("Industry: ", cp["industry"])
                 print("Website: ", cp["website"])
@@ -100,6 +97,7 @@ while loop == 0:
                 print("CEO: ", cp["ceo"])
                 print("Sector: ", cp["sector"])
                 print("Image: ", cp["image"])
+                print("----------------------------------------")
     
     elif portfolio_option == 5:
         dates_prices = {}
@@ -124,6 +122,7 @@ while loop == 0:
     
     elif portfolio_option == 6:
         print("\n")
+        print("-------------------------------------------------------------")
         print("You selected option 6.")
         print("Choose one of the following options: ")
         print("\n")
@@ -136,6 +135,7 @@ while loop == 0:
         print("Option 7: Forex Current Rates")    
         print("Option 8: Crypto Currencies")
         print("Option 9: Crytpo Ticker")
+        print("--------------------------------------------------------")
         print("\n")        
             
         market_option = input("Please type a number between 1 and 9: ")  
@@ -234,8 +234,11 @@ while loop == 0:
             url = ("https://financialmodelingprep.com/api/stock/actives?datatype=json")
             most_active_parser_response = get_jsonparsed_data(url)
 
+            print("\n")
             print("You are pulling this information at:", date_time)
+            print("\n")
             print("The Most Active Stocks Traded Are:")
+            print("\n")
 
             for k in most_active_parser_response.keys():
                 ticker = most_active_parser_response[k]
@@ -245,12 +248,8 @@ while loop == 0:
                 mas_change_pct = ticker["ChangesPerc"]
                 mas_comp_name = ticker["companyName"]
 
-                print("\n")
-                print("Stock Ticker:", mas_ticker)
-                print("Company Name:", mas_comp_name)
-                print("Current Price:", to_usd(float(mas_price) ) )
-                print("Price Change:", to_usd(float(mas_change) ) )
-                print("Price Change %:", mas_change_pct)
+                
+                print(mas_ticker, "**", mas_comp_name, "**", "Current Price:", to_usd(float(mas_price)), "** Price Change:", to_usd(float(mas_change)), "** Price Change %:", mas_change_pct)
     
         if market_option == 5:
 
