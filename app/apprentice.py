@@ -29,9 +29,10 @@ while loop == 0:
     print("Option 1: Add a ticker to the portfolio")
     print("Option 2: Remove a ticker from the portfolio")
     print("Option 3: View the portfolio")
-    print("Option 4: Company Profile of your portfolio")
-    print("Option 5: Time series analysis of your portfolio")
-    print("Option 6: Current Market Information", "\n")
+    print("Option 4: Company Profile for each stock in your portfolio")
+    print("Option 5: Time series line chart for each stock in your portfolio")
+    # option 6 provides additional market data
+    print("Option 6: List of available market data functions", "\n")
     print("-------------------------------------------------------------")
     portfolio_option = input("Please type a number between 1 and 6: ")  
     while not portfolio_option.isdigit() or int(portfolio_option) > 6 or int(portfolio_option) < 1:
@@ -40,9 +41,9 @@ while loop == 0:
     portfolio_option = int(portfolio_option)
     
     test = False 
-    if portfolio_option == 1:
+    if portfolio_option == 1: # option 1 to add a ticker to the portfolio
         symbol = input("Please enter ticker symbol to add: ")
-        while test == False:
+        while test == False: # while loop will run until a valid ticker is entered
             request_url = f"https://financialmodelingprep.com/api/v3/company/profile/{symbol}"
             response = requests.get(request_url)
             parsed_response = json.loads(response.text)
@@ -56,8 +57,8 @@ while loop == 0:
                 test = True  
 
  
-    elif portfolio_option == 2:
-        while test == False:
+    elif portfolio_option == 2: # option 2 to remove a ticker from the portfolio
+        while test == False: # while loop will run until a valid ticker is entered
             symbol = input("Please enter ticker symbol to delete: ")
             request_url = f"https://financialmodelingprep.com/api/v3/company/profile/{symbol}"
             response = requests.get(request_url)
@@ -73,10 +74,10 @@ while loop == 0:
                 print("\n", "*** TICKER REMOVED FROM PORTFOLIO ***")  
                 test = True
 
-    elif portfolio_option == 3:
+    elif portfolio_option == 3: # option 3 to view the portfolio on screen
         print("\n", "Your portfolio contains the following stocks: ", *investor_portfolio)
    
-    elif portfolio_option == 4:
+    elif portfolio_option == 4: # option 4 to view company profiles for each stock in the portfolio
         if not investor_portfolio:
             print("You do not have a ticker in your portfolio.  Please add a ticker.")
         else:
@@ -97,7 +98,7 @@ while loop == 0:
                 print("Image: ", cp["image"])
                 print("----------------------------------------")
     
-    elif portfolio_option == 5:
+    elif portfolio_option == 5: # option 5 to view line charts with historical price data for each stock
         dates_prices = {}
         if not investor_portfolio:
             print("You do not have a ticker in your portfolio.  Please add a ticker.")
@@ -118,7 +119,7 @@ while loop == 0:
                 "layout": go.Layout(title=f"{ticker} Price Chart")
                 }, auto_open=True)
     
-    elif portfolio_option == 6:
+    elif portfolio_option == 6: # option 6 will provide additional user choices
         print("\n")
         print("-------------------------------------------------------------")
         print("You selected option 6.")
@@ -142,7 +143,7 @@ while loop == 0:
             
         market_option = int(market_option)
          
-        if market_option == 1:
+        if market_option == 1: # market open and close and list of holidays
 
             market_open_close_request_url = f"https://financialmodelingprep.com/api/v3/is-the-market-open"
 
@@ -174,7 +175,7 @@ while loop == 0:
             print(this_calendar_year["Thanksgiving Day"], "Thanksgiving Day")
             print(this_calendar_year["Christmas"], "Christmas")
 
-        if market_option == 2:
+        if market_option == 2: # daily stock sectors
 
             stock_sectors_request_url = f"https://financialmodelingprep.com/api/v3/stock/sectors-performance"
             stock_sectors_response = requests.get(stock_sectors_request_url)
@@ -187,7 +188,7 @@ while loop == 0:
             for i in stock_sectors_parsed_response["sectorPerformance"]:
                 print(i["sector"], i["changesPercentage"])
         
-        if market_option == 3:
+        if market_option == 3: # list of market indices
 
             index_list_request_url = f"https://financialmodelingprep.com/api/v3/majors-indexes"
             index_list_response = requests.get(index_list_request_url)
@@ -205,7 +206,7 @@ while loop == 0:
                 print("**", index_name, "** Price: $", price, " ** Change: $", changes)
 
 
-        if market_option == 4:
+        if market_option == 4: # most active stocks
             now = datetime.datetime.now()
             date_time = now.strftime("%m/%d/%Y %I:%M:%S %p")
             try:
@@ -249,7 +250,7 @@ while loop == 0:
                 
                 print(mas_ticker, "**", mas_comp_name, "**", "Current Price:", to_usd(float(mas_price)), "** Price Change:", to_usd(float(mas_change)), "** Price Change %:", mas_change_pct)
     
-        if market_option == 5:
+        if market_option == 5: # stocks with largest gains
 
             most_gainer_request_url = f"https://financialmodelingprep.com/api/v3/stock/gainers"
 
@@ -269,7 +270,7 @@ while loop == 0:
                 print("\n")
                 print("**", mgs_ticker, "**", mgs_company_name, "** Current Price:", to_usd(float(mgs_price)),"** Price Change:", to_usd(float(mgs_changes)), "** Change %:", mgs_change_pct)
             
-        if market_option == 6:
+        if market_option == 6: # stocks with largest losses
             most_loser_request_url = f"https://financialmodelingprep.com/api/v3/stock/losers"
 
             most_loser_response = requests.get(most_loser_request_url)
@@ -289,7 +290,7 @@ while loop == 0:
                 print("**", mls_ticker, "**", mls_companyname, "** Current Price:", float(mls_price), "** Price Change:", float(mls_changes), "** Change %:", mls_change_pct)
 
 
-        if market_option == 7:
+        if market_option == 7: # foreign exchange rates
             forex_request_url = f"https://financialmodelingprep.com/api/v3/forex"
 
             forex_response = requests.get(forex_request_url)
@@ -312,7 +313,7 @@ while loop == 0:
 
                 print(forex_ticker, "** Bid:", forex_bid, "** Ask:", forex_ask, "** Open:", forex_open, "** Low:", forex_low, "** High", forex_high, "** Change:", forex_changes, "** Date:", forex_date) 
 
-        if market_option == 8:
+        if market_option == 8: # list of crypto currencies
 
             crypto_list_request_url = f"https://financialmodelingprep.com/api/v3/cryptocurrencies"
 
@@ -327,11 +328,11 @@ while loop == 0:
                 print(i["ticker"], i["name"], "** Price:", i["price"], "** Changes:", i["changes"], "** Market Cap:", i["marketCapitalization"])
 
 
-        if market_option == 9:
+        if market_option == 9: # option to select one crypto ticker
 
             ticker_loop = 0
             while ticker_loop == 0:
-                bitcoin_ticker = input("Please enter your desired crypto ticker: ")
+                bitcoin_ticker = input("Please enter your desired crypto ticker (i.e. BTC): ")
 
                 bitcoin_ticker_lower= bitcoin_ticker.lower()
 
