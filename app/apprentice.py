@@ -7,12 +7,10 @@ import os # operating system dependent functionality
 import datetime
 
 # packages
-from dotenv import load_dotenv
 import requests
 import plotly
 import plotly.graph_objs as go
 
-load_dotenv() # loads from .env
 
 # function to convert numbers to USD
 def to_usd(my_price):
