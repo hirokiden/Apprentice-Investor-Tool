@@ -209,4 +209,71 @@ while loop == 0:
                 print("Index Price: $", price)
                 print("Index Change: $", changes)
 
+        if market_option == 4:
+            now = datetime.datetime.now()
+            date_time = now.strftime("%m/%d/%Y %I:%M:%S %p")
+            try:
+                from urllib.request import urlopen
+            except ImportError:
+                from urllib2 import urlopen
 
+            def get_jsonparsed_data(url):
+                """
+                Receive the content of ``url``, parse it as JSON and return the object.
+
+                Parameters
+                ----------
+                url : str
+
+                Returns
+                -------
+                dict
+                """
+                response = urlopen(url)
+                data = response.read().decode("utf-8")
+                return json.loads(data)
+
+            url = ("https://financialmodelingprep.com/api/stock/actives?datatype=json")
+            most_active_parser_response = get_jsonparsed_data(url)
+
+            print("You are pulling this information at:", date_time)
+            print("The Most Active Stocks Traded Are:")
+
+            for k in most_active_parser_response.keys():
+                ticker = most_active_parser_response[k]
+                mas_ticker = ticker["Ticker"]
+                mas_price = ticker["Price"]
+                mas_change = ticker["Changes"]
+                mas_change_pct = ticker["ChangesPerc"]
+                mas_comp_name = ticker["companyName"]
+
+                print("\n")
+                print("Stock Ticker:", mas_ticker)
+                print("Company Name:", mas_comp_name)
+                print("Current Price:", to_usd(float(mas_price) ) )
+                print("Price Change:", to_usd(float(mas_change) ) )
+                print("Price Change %:", mas_change_pct)
+    
+        if market_option == 5:
+
+            most_gainer_request_url = f"https://financialmodelingprep.com/api/v3/stock/gainers"
+
+            most_gainer_response = requests.get(most_gainer_request_url)
+
+            most_gainer_parsed_response = json.loads(most_gainer_response.text) #this converts string format into dictionary
+
+            for i in most_gainer_parsed_response["mostGainerStock"]:
+    
+                mgs_ticker = i["ticker"]
+                mgs_price = i["price"]
+                mgs_changes = i["changes"]
+                mgs_change_pct = i["changesPercentage"]
+                mgs_company_name = i["companyName"]
+
+                print("\n")
+                print("Stock Ticker:", mgs_ticker)
+                print("Company Name:", mgs_company_name)
+                print("Current Price:", to_usd(float(mgs_price)))
+                print("Price Change:", to_usd(float(mgs_changes)))
+                print("Price Change %:", mgs_change_pct)
+            
