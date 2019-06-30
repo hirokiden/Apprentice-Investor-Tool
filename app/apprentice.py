@@ -31,7 +31,7 @@ while loop == 0:
     print("Option 3: View the portfolio")
     print("Option 4: Company Profile of your portfolio")
     print("Option 5: Time series analysis of your portfolio")
-    print("Option 6: ", "\n")
+    print("Option 6: Current Market Information", "\n")
     portfolio_option = input("Please type a number between 1 and 6: ")  
     while not portfolio_option.isdigit() or int(portfolio_option) > 6 or int(portfolio_option) < 1:
         portfolio_option = input("Incorrect input.  Please type a number between 1 and 6:")
@@ -41,10 +41,10 @@ while loop == 0:
     test = False 
     if portfolio_option == 1:
         symbol = input("Please enter ticker symbol to add: ")
-        request_url = f"https://financialmodelingprep.com/api/v3/company/profile/{symbol}"
-        response = requests.get(request_url)
-        parsed_response = json.loads(response.text)
         while test == False:
+            request_url = f"https://financialmodelingprep.com/api/v3/company/profile/{symbol}"
+            response = requests.get(request_url)
+            parsed_response = json.loads(response.text)
             if len(symbol) > 5:
                 symbol = input("Ticker invalid.  Please enter a new ticker: ")
             elif 'Error' in parsed_response.keys():
@@ -98,7 +98,7 @@ while loop == 0:
                 print("Website: ", cp["website"])
                 print("Desciption: ", cp["description"])
                 print("CEO: ", cp["ceo"])
-                print("Sector: ", ["sector"])
+                print("Sector: ", cp["sector"])
                 print("Image: ", cp["image"])
     
     elif portfolio_option == 5:
@@ -121,8 +121,56 @@ while loop == 0:
                 "data": [go.Scatter(x=dates_prices[ticker]["date"], y=dates_prices[ticker]["price"])],
                 "layout": go.Layout(title=f"{ticker} Price Chart")
                 }, auto_open=True)
-                        
+    
+    elif portfolio_option == 6:
+        print("\n")
+        print("Choose one of the following options: ")
+        print("Option 1: Market Open Close")
+        print("Option 2: Daily Stock Sectors")
+        print("Option 3: Index List")
+        print("Option 4: Most Active Stocks")
+        print("Option 5: Biggest Gainer Stocks")
+        print("Option 6: Biggest Losers Stocks")
+        print("Option 7: Forex Current Rates")    
+        print("Option 8: Crypto Currencies")
+        print("Option 9: Crytpo Ticker")
+        print("\n")        
+            
+        market_option = input("Please type a number between 1 and 9: ")  
+        while not market_option.isdigit() or int(market_option) > 9 or int(market_option) < 1:
+            market_option = input("Incorrect input.  Please type a number between 1 and 9:")
+            
+        market_option = int(market_option)
+         
+        if market_option == 1:
+            now = datetime.datetime.now()
+            date_time = now.strftime("%m/%d/%Y %I:%M:%S %p") # Formatted for easy to understand human reading instead of military time
 
-                
-    
-    
+            market_open_close_request_url = f"https://financialmodelingprep.com/api/v3/is-the-market-open"
+
+            market_open_close_response = requests.get(market_open_close_request_url)
+
+            market_open_close_parsed_response = json.loads(market_open_close_response.text) #this converts string format into dictionary
+
+            if market_open_close_parsed_response["isTheStockMarketOpen"] == "True":
+                open_or_not = "Open"
+            else:
+                open_or_not = "Closed" 
+
+            this_calendar_year = market_open_close_parsed_response["stockMarketHolidays"][0]
+
+            print("The", market_open_close_parsed_response["stockExchangeName"], "opens at", market_open_close_parsed_response["stockMarketHours"]["openingHour"], "and closes at", market_open_close_parsed_response["stockMarketHours"]["closingHour"], "on weekdays.")
+            print("\n")
+            print("The Stock Market is currently", open_or_not,".")
+            print("Note that these are the upcoming holidays for the current Calendar Year:", this_calendar_year["year"])
+
+            print("\n")
+            print(this_calendar_year["New Years Day"], "New Years Day")
+            print(this_calendar_year["Martin Luther King, Jr. Day"], "Martin Luther King, Jr. Day")
+            print(this_calendar_year["Washington's Birthday"], "Washington's Birthday")
+            print(this_calendar_year["Good Friday"], "Good Friday")
+            print(this_calendar_year["Memorial Day"], "Memorial Day")
+            print(this_calendar_year["Independence Day"], "Independence Day")
+            print(this_calendar_year["Labor Day"], "Labor Day")
+            print(this_calendar_year["Thanksgiving Day"], "Thanksgiving Day")
+            print(this_calendar_year["Christmas"], "Christmas")
