@@ -258,7 +258,9 @@ while loop == 0:
             most_gainer_response = requests.get(most_gainer_request_url)
 
             most_gainer_parsed_response = json.loads(most_gainer_response.text) #this converts string format into dictionary
-
+            print("\n")
+            print("-----------------------------------------------")            
+            print("Today's biggeset winners:")
             for i in most_gainer_parsed_response["mostGainerStock"]:
     
                 mgs_ticker = i["ticker"]
@@ -266,13 +268,8 @@ while loop == 0:
                 mgs_changes = i["changes"]
                 mgs_change_pct = i["changesPercentage"]
                 mgs_company_name = i["companyName"]
-
                 print("\n")
-                print("Stock Ticker:", mgs_ticker)
-                print("Company Name:", mgs_company_name)
-                print("Current Price:", to_usd(float(mgs_price)))
-                print("Price Change:", to_usd(float(mgs_changes)))
-                print("Price Change %:", mgs_change_pct)
+                print("**", mgs_ticker, "**", mgs_company_name, "** Current Price:", to_usd(float(mgs_price)),"** Price Change:", to_usd(float(mgs_changes)), "** Change %:", mgs_change_pct)
             
         if market_option == 6:
             most_loser_request_url = f"https://financialmodelingprep.com/api/v3/stock/losers"
@@ -280,7 +277,9 @@ while loop == 0:
             most_loser_response = requests.get(most_loser_request_url)
 
             most_loser_parsed_response = json.loads(most_loser_response.text) #this converts string format into dictionary
-
+            print("\n")
+            print("-----------------------------------------------")
+            print("Today's Biggest Losers:")
             for i in most_loser_parsed_response["mostLoserStock"]:
                 mls_ticker = i["ticker"]
                 mls_price = i["price"]
@@ -289,11 +288,8 @@ while loop == 0:
                 mls_companyname = i["companyName"]
 
                 print("\n")
-                print("Stock Ticker:", mls_ticker)
-                print("Company Name:", mls_companyname)
-                print("Current Price:", float(mls_price))
-                print("Price Change:", float(mls_changes))
-                print("Price Change %:", mls_change_pct)
+                print("**", mls_ticker, "**", mls_companyname, "** Current Price:", float(mls_price), "** Price Change:", float(mls_changes), "** Change %:", mls_change_pct)
+
 
         if market_option == 7:
             forex_request_url = f"https://financialmodelingprep.com/api/v3/forex"
