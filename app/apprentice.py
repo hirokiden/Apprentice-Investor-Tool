@@ -11,10 +11,19 @@ import requests
 import plotly
 import plotly.graph_objs as go
 from dotenv import load_dotenv # ability to password protect in the future
+from sendgrid import SendGridAPIClient
+from sendgrid.helpers.mail import Mail
+
 
 # Can also run as --> pip install plotly
 
 load_dotenv() # loads from .env in case passwords used for multi-user in the future
+
+# Referenced Professor Rosetti's code from "The Sendgrid Package" class notes 
+SENDGRID_API_KEY = os.environ.get("SENDGRID_API_KEY", "Please set env var called 'SENDGRID_API_KEY'")
+MY_ADDRESS = os.environ.get("MY_EMAIL_ADDRESS", "Please set env var called 'MY_EMAIL_ADDRESS'")
+TO_ADDRESS = os.environ.get("TO_EMAIL_ADDRESS", "Please set env var called 'TO_EMAIL_ADDRESS'")
+client = SendGridAPIClient(SENDGRID_API_KEY) #> <class 'sendgrid.sendgrid.SendGridAPIClient>
 
 # function to convert numbers to USD
 def to_usd(my_price):
@@ -36,11 +45,12 @@ while loop == 0:
     print("Option 4: Company Profile for each stock in your portfolio")
     print("Option 5: Time series line chart for each stock in your portfolio")
     print("Option 6: Print Financial Statements to .csv")
-    # option 7 provides additional market data
-    print("Option 7: List of available market data functions", "\n")
+    print("Option 7: Send yourself an email with your portfolio and current prices")
+    # option 8 provides additional market data
+    print("Option 8: List of available market data functions", "\n")
     print("-------------------------------------------------------------")
-    portfolio_option = input("Please type a number between 1 and 7: ")  
-    while not portfolio_option.isdigit() or int(portfolio_option) > 7 or int(portfolio_option) < 1:
+    portfolio_option = input("Please type a number between 1 and 8: ")  
+    while not portfolio_option.isdigit() or int(portfolio_option) > 8 or int(portfolio_option) < 1:
         portfolio_option = input("Incorrect input.  Please type a number between 1 and 7:")
         
     portfolio_option = int(portfolio_option)
@@ -184,7 +194,58 @@ while loop == 0:
                 print("ALL COMPANY FINANCIALS PRINTED")
                 print("-------------------------------------")
 
-    elif portfolio_option == 7: # option 7 will provide additional user choices
+    elif portfolio_option == 7: # will send an email with investor's portfolio
+        now = datetime.datetime.now()
+        date_time = now.strftime("%m/%d/%Y %I:%M:%S %p")        
+        
+        price_data = {}
+
+        for ticker in investor_portfolio:
+            price_data[ticker] = {"name":[], "price":[]}
+            
+            em1_request_url = f"https://financialmodelingprep.com/api/v3/stock/real-time-price/{ticker}"
+            em1_response = requests.get(em1_request_url)
+            em1_parsed_response = json.loads(em1_response.text)
+            tp = em1_parsed_response["price"]
+            
+            request_url = f"https://financialmodelingprep.com/api/v3/company/profile/{ticker}"
+            response = requests.get(request_url)
+            parsed_response = json.loads(response.text)
+            cp = parsed_response["profile"]
+            price_data[ticker]["name"].append(cp["companyName"])
+            price_data[ticker]["price"].append(tp)
+            
+        
+        subject = "Your current portfolio"
+
+        html_content = "Your <strong>Portfolio</strong>"
+        
+        html_list_items = "<li>Stock 1: Product 1</li>"
+        html_content = f"""
+        <h3>Below is a list of your current portfolio and prices:</h3>
+        <p>Data Retrieved at:{date_time}</p>
+        <ol>
+           {price_data}
+        </ol>
+        """
+        print("HTML:", html_content)
+
+        message = Mail(from_email=MY_ADDRESS, to_emails=TO_ADDRESS, subject=subject, html_content=html_content)
+
+        try:
+            response = client.send(message)
+
+            print("RESPONSE:", type(response)) #> <class 'python_http_client.client.Response'>
+            print(response.status_code) #> 202 indicates SUCCESS
+            print(response.body)
+            print(response.headers)
+
+        except Exception as e:
+            print("ERROR", e)
+            
+    
+    
+    elif portfolio_option == 8: # option 8 will provide additional user choices
         print("\n")
         print("-------------------------------------------------------------")
         print("You selected option 7.")
