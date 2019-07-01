@@ -187,7 +187,7 @@ while loop == 0:
     elif portfolio_option == 7: # option 7 will provide additional user choices
         print("\n")
         print("-------------------------------------------------------------")
-        print("You selected option 6.")
+        print("You selected option 7.")
         print("Choose one of the following options: ")
         print("\n")
         print("Option 1: Market Open Close and List of Holidays")
