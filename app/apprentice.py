@@ -26,7 +26,7 @@ investor_portfolio = []
 while loop == 0:
 
     # to create an equity portfolio
-    print("\n")3
+    print("\n")
     print("-------------------------------------------------------------")
     print("Create, modify and track a portfolio of stocks!")
     print("\n")
