@@ -28,9 +28,9 @@ while loop == 0:
     print("-------------------------------------------------------------")
     print("Create, modify and track a portfolio of stocks!")
     print("\n")
-    print("Option 1: Add a ticker to the portfolio")
+    print("Option 1: Add a ticker to the portfolio (i.e. MSFT)")
     print("Option 2: Remove a ticker from the portfolio")
-    print("Option 3: View the portfolio")
+    print("Option 3: View the tickers of stocks in the portfolio")
     print("Option 4: Company Profile for each stock in your portfolio")
     print("Option 5: Time series line chart for each stock in your portfolio")
     print("Option 6: Print Financial Statements to .csv")
@@ -46,13 +46,13 @@ while loop == 0:
     test = False 
     if portfolio_option == 1: # option 1 to add a ticker to the portfolio
         symbol = input("Please enter ticker symbol to add: ")
+        while len(symbol) > 5:
+            symbol = input("Ticker invalid.  Please enter a new ticker: ")
         while test == False: # while loop will run until a valid ticker is entered
             request_url = f"https://financialmodelingprep.com/api/v3/company/profile/{symbol}"
             response = requests.get(request_url)
             parsed_response = json.loads(response.text)
-            if len(symbol) > 5:
-                symbol = input("Ticker invalid.  Please enter a new ticker: ")
-            elif 'Error' in parsed_response.keys():
+            if 'Error' in parsed_response.keys():
                 symbol = input("Ticker invalid.  Please enter a new ticker: ")
             else:
                 investor_portfolio.append(symbol)
@@ -62,13 +62,13 @@ while loop == 0:
  
     elif portfolio_option == 2: # option 2 to remove a ticker from the portfolio
         symbol = input("Please enter ticker symbol to delete: ")
+        while len(symbol) > 5:
+            symbol = input("Ticker invalid.  Please enter a new ticker: ")
         while test == False: # while loop will run until a valid ticker is entered
             request_url = f"https://financialmodelingprep.com/api/v3/company/profile/{symbol}"
             response = requests.get(request_url)
             parsed_response = json.loads(response.text)
-            if len(symbol) > 5:
-                symbol = input("Ticker invalid.  Please enter a new ticker: ")
-            elif 'Error' in parsed_response.keys():
+            if 'Error' in parsed_response.keys():
                 symbol = input("Ticker invalid.  Please enter a new ticker: ")
             elif symbol not in investor_portfolio:
                 symbol = input("Ticker not in portfolio.  Please enter a new ticker: ")
