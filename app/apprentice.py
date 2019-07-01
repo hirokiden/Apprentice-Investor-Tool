@@ -39,7 +39,7 @@ while loop == 0:
     # option 7 provides additional market data
     print("Option 7: List of available market data functions", "\n")
     print("-------------------------------------------------------------")
-    portfolio_option = input("Please type a number between 1 and 6: ")  
+    portfolio_option = input("Please type a number between 1 and 7: ")  
     while not portfolio_option.isdigit() or int(portfolio_option) > 7 or int(portfolio_option) < 1:
         portfolio_option = input("Incorrect input.  Please type a number between 1 and 7:")
         
