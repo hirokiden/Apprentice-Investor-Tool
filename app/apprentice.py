@@ -12,6 +12,8 @@ import plotly
 import plotly.graph_objs as go
 from dotenv import load_dotenv # ability to password protect in the future
 
+# Can also run as --> pip install plotly
+
 load_dotenv() # loads from .env in case passwords used for multi-user in the future
 
 # function to convert numbers to USD
@@ -34,12 +36,12 @@ while loop == 0:
     print("Option 4: Company Profile for each stock in your portfolio")
     print("Option 5: Time series line chart for each stock in your portfolio")
     print("Option 6: Print Financial Statements to .csv")
-    # option 6 provides additional market data
+    # option 7 provides additional market data
     print("Option 7: List of available market data functions", "\n")
     print("-------------------------------------------------------------")
-    portfolio_option = input("Please type a number between 1 and 6: ")  
+    portfolio_option = input("Please type a number between 1 and 7: ")  
     while not portfolio_option.isdigit() or int(portfolio_option) > 7 or int(portfolio_option) < 1:
-        portfolio_option = input("Incorrect input.  Please type a number between 1 and 6:")
+        portfolio_option = input("Incorrect input.  Please type a number between 1 and 7:")
         
     portfolio_option = int(portfolio_option)
     
@@ -185,7 +187,7 @@ while loop == 0:
     elif portfolio_option == 7: # option 7 will provide additional user choices
         print("\n")
         print("-------------------------------------------------------------")
-        print("You selected option 6.")
+        print("You selected option 7.")
         print("Choose one of the following options: ")
         print("\n")
         print("Option 1: Market Open Close and List of Holidays")
@@ -277,7 +279,8 @@ while loop == 0:
             except ImportError:
                 from urllib2 import urlopen
 
-            def get_jsonparsed_data(url):
+            def get_jsonparsed_data(url): #This coding section is attributed to https://financialmodelingprep.com/developer/docs/most-actives-stock-market-data-free-api/
+                                          #This portion shares code on how to import JSON and parse data into dictionary  
                 """
                 Receive the content of ``url``, parse it as JSON and return the object.
 
@@ -302,7 +305,7 @@ while loop == 0:
             print("The Most Active Stocks Traded Are:")
             print("\n")
 
-            for k in most_active_parser_response.keys():
+            for k in most_active_parser_response.keys(): #Code attributed to Prof. Rosetti's in-class working session advice
                 ticker = most_active_parser_response[k]
                 mas_ticker = ticker["Ticker"]
                 mas_price = ticker["Price"]
@@ -421,6 +424,6 @@ while loop == 0:
             print("Cryptocurrency Ticker:", selected_crypo_ticker)
             print("Cryptocurrency Name:", selected_crypo_name)
             print("Current Price: $", float(selected_crypo_price) ) 
-            print("Price Change:", to_usd( float(selected_crypo_change) ) )
+            print("Change:", float(selected_crypo_change) ) 
             print("Market Capitalization:", to_usd( float(selected_crypo_market_cap) ) )
 
