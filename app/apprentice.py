@@ -10,7 +10,9 @@ import datetime
 import requests
 import plotly
 import plotly.graph_objs as go
+from dotenv import load_dotenv # ability to password protect in the future
 
+load_dotenv() # loads from .env in case passwords used for multi-user in the future
 
 # function to convert numbers to USD
 def to_usd(my_price):
