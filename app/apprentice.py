@@ -31,11 +31,12 @@ while loop == 0:
     print("Option 3: View the portfolio")
     print("Option 4: Company Profile for each stock in your portfolio")
     print("Option 5: Time series line chart for each stock in your portfolio")
+    print("Option 6: Print Financial Statements to .csv")
     # option 6 provides additional market data
-    print("Option 6: List of available market data functions", "\n")
+    print("Option 7: List of available market data functions", "\n")
     print("-------------------------------------------------------------")
     portfolio_option = input("Please type a number between 1 and 6: ")  
-    while not portfolio_option.isdigit() or int(portfolio_option) > 6 or int(portfolio_option) < 1:
+    while not portfolio_option.isdigit() or int(portfolio_option) > 7 or int(portfolio_option) < 1:
         portfolio_option = input("Incorrect input.  Please type a number between 1 and 6:")
         
     portfolio_option = int(portfolio_option)
@@ -58,8 +59,8 @@ while loop == 0:
 
  
     elif portfolio_option == 2: # option 2 to remove a ticker from the portfolio
+        symbol = input("Please enter ticker symbol to delete: ")
         while test == False: # while loop will run until a valid ticker is entered
-            symbol = input("Please enter ticker symbol to delete: ")
             request_url = f"https://financialmodelingprep.com/api/v3/company/profile/{symbol}"
             response = requests.get(request_url)
             parsed_response = json.loads(response.text)
@@ -119,7 +120,67 @@ while loop == 0:
                 "layout": go.Layout(title=f"{ticker} Price Chart")
                 }, auto_open=True)
     
-    elif portfolio_option == 6: # option 6 will provide additional user choices
+    elif portfolio_option == 6: # option 6 to print financial statements to .csv
+            if not investor_portfolio:
+                print("You do not have a ticker in your portfolio.  Please add a ticker.")
+            else:
+                for ticker in investor_portfolio:
+                    fs_request_url = f"https://financialmodelingprep.com/api/v3/financials/income-statement/{ticker}"
+                    fs_response = requests.get(fs_request_url)
+                    parsed_response = json.loads(fs_response.text)
+                    fs = parsed_response["financials"]
+
+                    csv_file_path = os.path.join(os.path.dirname(__file__), "..", "data", ticker + ".csv") # a relative filepath
+
+                    with open(csv_file_path, "w") as csv_file: # "w" means "open the file for writing"
+                    
+                        csv_headers = ["Ticker", "Date", "Revenue", "Revenue Growth", "Cost of Revenue", "Gross Profit",  "R&D Expenses", "SG&A Expenses",  "Operating Expenses", 
+                        "Operating Income", "Interest Expense", "Earning before Tax", "Income Tax Expense", "Income Tax Expense",  "Net Income", "EPS", "EPS Diluted",
+                        "Dividend per Share", "Gross Margin", "EBITDA Margin", "EBIT Margins", "Profit Margin", "Free Cash Flow Margin",  "EBITDA", "EBIT", "Earnings Before Tax Margin",
+                        "Net Profit Margin"
+                        ]
+
+                    
+                        writer = csv.DictWriter(csv_file, fieldnames = csv_headers, lineterminator = '\r')
+                        writer.writeheader() # uses fieldnames set above
+                
+                        for i in fs: # This loop will take the 1st ticker and output all the details in the loop
+
+
+                            writer.writerow({
+                            "Ticker": ticker.upper(), #capitalized the user stock ticker input 1
+                            "Date":  i["date"] , 
+                            "Revenue": i["Revenue"] , 
+                            "Revenue Growth": i["Revenue Growth"], 
+                            "Cost of Revenue":  i["Cost of Revenue"], 
+                            "Gross Profit": i["Gross Profit"], 
+                            "R&D Expenses": i["R&D Expenses"], 
+                            "SG&A Expenses": i["SG&A Expense"], 
+                            "Operating Expenses": i["Operating Expenses"] , 
+                            "Operating Income": i["Operating Income"], 
+                            "Interest Expense": i["Interest Expense"], 
+                            "Earning before Tax": i["Earnings before Tax"], 
+                            "Income Tax Expense": i["Income Tax Expense"], 
+                            "Net Income": i["Net Income"], 
+                            "EPS": i["EPS"], 
+                            "EPS Diluted": i["EPS Diluted"], 
+                            "Dividend per Share": i["Dividend per Share"], 
+                            "Gross Margin": i["Gross Margin"], 
+                            "EBITDA Margin": i["EBITDA Margin"], 
+                            "EBIT Margins":  i["EBIT Margin"], 
+                            "Profit Margin": i["Profit Margin"], 
+                            "Free Cash Flow Margin": i["Free Cash Flow margin"], 
+                            "EBITDA": i["EBITDA"], 
+                            "EBIT": i["EBIT"], 
+                            "Earnings Before Tax Margin": i["Earnings Before Tax Margin"], 
+                            "Net Profit Margin": i["Net Profit Margin"],                            
+                            })
+                print("\n")
+                print("-------------------------------------")
+                print("ALL COMPANY FINANCIALS PRINTED")
+                print("-------------------------------------")
+
+    elif portfolio_option == 7: # option 7 will provide additional user choices
         print("\n")
         print("-------------------------------------------------------------")
         print("You selected option 6.")
@@ -203,7 +264,7 @@ while loop == 0:
                 price = i["price"]
                 changes = i["changes"]
                 
-                print("**", index_name, "** Price: $", price, " ** Change: $", changes)
+                print(index_name, "** Price: $", price, " ** Change: $", changes)
 
 
         if market_option == 4: # most active stocks
@@ -287,7 +348,7 @@ while loop == 0:
                 mls_companyname = i["companyName"]
 
                 print("\n")
-                print("**", mls_ticker, "**", mls_companyname, "** Current Price:", float(mls_price), "** Price Change:", float(mls_changes), "** Change %:", mls_change_pct)
+                print(mls_ticker, "**", mls_companyname, "** Current Price:", float(mls_price), "** Price Change:", float(mls_changes), "** Change %:", mls_change_pct)
 
 
         if market_option == 7: # foreign exchange rates
