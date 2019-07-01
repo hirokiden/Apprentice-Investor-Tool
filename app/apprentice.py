@@ -424,6 +424,6 @@ while loop == 0:
             print("Cryptocurrency Ticker:", selected_crypo_ticker)
             print("Cryptocurrency Name:", selected_crypo_name)
             print("Current Price: $", float(selected_crypo_price) ) 
-            print("Price Change:", to_usd( float(selected_crypo_change) ) )
+            print("Price Change:", float(selected_crypo_change) ) 
             print("Market Capitalization:", to_usd( float(selected_crypo_market_cap) ) )
 
