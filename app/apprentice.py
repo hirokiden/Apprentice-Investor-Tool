@@ -21,6 +21,7 @@ load_dotenv() # loads from .env in case passwords used for multi-user in the fut
 
 # Referenced Professor Rosetti's code from "The Sendgrid Package" class notes 
 SENDGRID_API_KEY = os.environ.get("SENDGRID_API_KEY", "Please set env var called 'SENDGRID_API_KEY'")
+SENDGRID_TEMPLATE_ID = os.environ.get("SENDGRID_TEMPLATE_ID", "Please set env var called 'SENDGRID_TEMPLATE_ID'")
 MY_ADDRESS = os.environ.get("MY_EMAIL_ADDRESS", "Please set env var called 'MY_EMAIL_ADDRESS'")
 TO_ADDRESS = os.environ.get("TO_EMAIL_ADDRESS", "Please set env var called 'TO_EMAIL_ADDRESS'")
 client = SendGridAPIClient(SENDGRID_API_KEY) #> <class 'sendgrid.sendgrid.SendGridAPIClient>
@@ -215,26 +216,14 @@ while loop == 0:
             price_data[ticker]["name"].append(cp["companyName"])
             price_data[ticker]["price"].append(tp)
             
-        
-        subject = "Your current portfolio"
+        template_data = {"timestamp": date_time, "products": price_data} 
 
-        html_content = "Your <strong>Portfolio</strong>"
-        
-        html_list_items = "<li>Stock 1: Product 1</li>"
-        html_content = f"""
-        <h3>Below is a list of your current portfolio and prices:</h3>
-        <p>Data Retrieved at:{date_time}</p>
-        <ol>
-           {price_data}
-        </ol>
-        """
-        print("HTML:", html_content)
-
-        message = Mail(from_email=MY_ADDRESS, to_emails=TO_ADDRESS, subject=subject, html_content=html_content)
+        message = Mail(from_email=MY_ADDRESS, to_emails=TO_ADDRESS)
+        message.template_id = SENDGRID_TEMPLATE_ID
+        message.dynamic_template_data = template_data
 
         try:
             response = client.send(message)
-
             print("RESPONSE:", type(response)) #> <class 'python_http_client.client.Response'>
             print(response.status_code) #> 202 indicates SUCCESS
             print(response.body)
