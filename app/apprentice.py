@@ -77,21 +77,24 @@ while loop == 0:
 
  
     elif portfolio_option == 2: # option 2 to remove a ticker from the portfolio
-        symbol = input("Please enter ticker symbol to delete: ")
-        while len(symbol) > 5:
-            symbol = input("Ticker invalid.  Please enter a new ticker: ")
-        while test == False: # while loop will run until a valid ticker is entered
-            request_url = f"https://financialmodelingprep.com/api/v3/company/profile/{symbol}"
-            response = requests.get(request_url)
-            parsed_response = json.loads(response.text)
-            if 'Error' in parsed_response.keys():
+        if not investor_portfolio:
+            print("You do not have a ticker in your portfolio.  Please add a ticker.")
+        else:
+            symbol = input("Please enter ticker symbol to delete: ")
+            while len(symbol) > 5:
                 symbol = input("Ticker invalid.  Please enter a new ticker: ")
-            elif symbol not in investor_portfolio:
-                symbol = input("Ticker not in portfolio.  Please enter a new ticker: ")
-            else:
-                investor_portfolio.remove(symbol)
-                print("\n", "*** TICKER REMOVED FROM PORTFOLIO ***")  
-                test = True
+            while test == False: # while loop will run until a valid ticker is entered
+                request_url = f"https://financialmodelingprep.com/api/v3/company/profile/{symbol}"
+                response = requests.get(request_url)
+                parsed_response = json.loads(response.text)
+                if 'Error' in parsed_response.keys():
+                    symbol = input("Ticker invalid.  Please enter a new ticker: ")
+                elif symbol not in investor_portfolio:
+                    symbol = input("Ticker not in portfolio.  Please enter a new ticker: ")
+                else:
+                    investor_portfolio.remove(symbol)
+                    print("\n", "*** TICKER REMOVED FROM PORTFOLIO ***")  
+                    test = True
 
     elif portfolio_option == 3: # option 3 to view the portfolio on screen
         print("\n", "Your portfolio contains the following stocks: ", *investor_portfolio)
