@@ -47,7 +47,7 @@ SENDGRID_TEMPLATE_ID = "123example"
 
 Once logged onto SendGrid, the below code can be used to setup the custom template:
 
-<img src="https://i.ibb.co/ZmzYjkd/trumpmini.png">
+<img src="https://i.ibb.co/svxhJST/MDM.png">
 
 <h3>Please see below your current portfolio with APPRENTICE INVESTOR:</h3>
 
