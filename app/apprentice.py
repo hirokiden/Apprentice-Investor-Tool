@@ -8,16 +8,16 @@ import datetime
 
 # packages
 import requests
-import plotly
+import plotly #plotly package used to chart daily prices
 import plotly.graph_objs as go
-from dotenv import load_dotenv # ability to password protect in the future
+from dotenv import load_dotenv # to maintain credentials for sendgrid
 from sendgrid import SendGridAPIClient
 from sendgrid.helpers.mail import Mail
 
 
-# Can also run as --> pip install plotly
+# will need to pip install packages
 
-load_dotenv() # loads from .env in case passwords used for multi-user in the future
+load_dotenv() # loads from .env
 
 # Referenced Professor Rosetti's code from "The Sendgrid Package" class notes 
 SENDGRID_API_KEY = os.environ.get("SENDGRID_API_KEY", "Please set env var called 'SENDGRID_API_KEY'")
@@ -38,16 +38,19 @@ while loop == 0:
     # to create an equity portfolio
     print("\n")
     print("-------------------------------------------------------------")
-    print("Create, modify and track a portfolio of stocks!")
+    print("Welcome Apprentice Investor")
     print("\n")
+    print("OPTIONS FOR BUILDING, MODIFYING OR ANALYZING A PORTFOLIO:")
     print("Option 1: Add a ticker to the portfolio (i.e. MSFT)")
     print("Option 2: Remove a ticker from the portfolio")
-    print("Option 3: View the tickers of stocks in the portfolio")
+    print("Option 3: View tickers in your portfolio")
     print("Option 4: Company Profile for each stock in your portfolio")
     print("Option 5: Time series line chart for each stock in your portfolio")
     print("Option 6: Print Financial Statements to .csv")
-    print("Option 7: Send yourself an email with your portfolio and current prices")
+    print("Option 7: Send yourself an email with your stocks and current prices")
+    print("\n")
     # option 8 provides additional market data
+    print("USE OPTION 8 FOR MARKET DATA:")
     print("Option 8: List of available market data functions", "\n")
     print("-------------------------------------------------------------")
     portfolio_option = input("Please type a number between 1 and 8: ")  
@@ -68,7 +71,7 @@ while loop == 0:
             if 'Error' in parsed_response.keys():
                 symbol = input("Ticker invalid.  Please enter a new ticker: ")
             else:
-                investor_portfolio.append(symbol)
+                investor_portfolio.append(symbol.upper())
                 print("\n", "*** TICKER ADDED TO PORTFOLIO ***")
                 test = True  
 
@@ -237,7 +240,7 @@ while loop == 0:
     elif portfolio_option == 8: # option 8 will provide additional user choices
         print("\n")
         print("-------------------------------------------------------------")
-        print("You selected option 7.")
+        print("You selected option 8.")
         print("Choose one of the following options: ")
         print("\n")
         print("Option 1: Market Open Close and List of Holidays")
