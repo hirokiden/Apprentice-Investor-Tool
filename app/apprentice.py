@@ -55,7 +55,7 @@ while loop == 0:
     print("-------------------------------------------------------------")
     portfolio_option = input("Please type a number between 1 and 8: ")  
     while not portfolio_option.isdigit() or int(portfolio_option) > 8 or int(portfolio_option) < 1:
-        portfolio_option = input("Incorrect input.  Please type a number between 1 and 7:")
+        portfolio_option = input("Incorrect input.  Please type a number between 1 and 8:")
         
     portfolio_option = int(portfolio_option)
     
