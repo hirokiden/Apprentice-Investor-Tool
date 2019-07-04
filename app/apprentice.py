@@ -120,6 +120,8 @@ while loop == 0:
                 print("Image: ", cp["image"])
                 print("----------------------------------------")
     
+    # next section has shown a chunk error, discussed with Professor Rosetti in class.
+     
     elif portfolio_option == 5: # option 5 to view line charts with historical price data for each stock
         dates_prices = {}
         if not investor_portfolio:
